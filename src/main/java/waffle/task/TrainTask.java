@@ -11,11 +11,11 @@ import waffle.classifier.NaiveBayesClassifierBuilder;
 import waffle.document.Document;
 import waffle.document.TrainingSet;
 
-public class Train {
+public class TrainTask {
 
     public static void main(String[] args) throws IOException, URISyntaxException {
 
-        URL trainingSetUrl = Train.class.getResource("/training-set.xml");
+        URL trainingSetUrl = TrainTask.class.getResource("/training-set.xml");
         File trainingSetFile = new File(trainingSetUrl.toURI());
 
         List<Document> trainingDocuments = new TrainingSet(trainingSetFile).readDocuments();
