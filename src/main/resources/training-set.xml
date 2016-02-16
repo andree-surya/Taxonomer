@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<training-set>
+    <category name="情報技術">
+        <document>https://ja.wikipedia.org/wiki/情報技術</document>
+        <document>https://ja.wikipedia.org/wiki/電子媒体</document>
+        <document>https://ja.wikipedia.org/wiki/データベース</document>
+        <document>https://ja.wikipedia.org/wiki/SQL</document>
+        <document>https://ja.wikipedia.org/wiki/データ転送</document>
+        <document>https://ja.wikipedia.org/wiki/データ処理</document>
+        <document>https://ja.wikipedia.org/wiki/データマイニング</document>
+        <document>https://ja.wikipedia.org/wiki/機械学習</document>
+        <document>https://ja.wikipedia.org/wiki/World_Wide_Web_Consortium</document>
+        <document>https://ja.wikipedia.org/wiki/Extensible_Markup_Language</document>
+    </category>
+    <category name="政治学">
+        <document>https://ja.wikipedia.org/wiki/政治</document>
+        <document>https://ja.wikipedia.org/wiki/政治学</document>
+        <document>https://ja.wikipedia.org/wiki/選挙</document>
+        <document>https://ja.wikipedia.org/wiki/民主主義</document>
+        <document>https://ja.wikipedia.org/wiki/ガバナンス</document>
+        <document>https://ja.wikipedia.org/wiki/専制政治</document>
+        <document>https://ja.wikipedia.org/wiki/縁故主義</document>
+        <document>https://ja.wikipedia.org/wiki/政党</document>
+        <document>https://ja.wikipedia.org/wiki/権威主義</document>
+        <document>https://ja.wikipedia.org/wiki/共和制</document>
+    </category>
+    <category name="心理学">
+        <document>https://ja.wikipedia.org/wiki/心理学</document>
+        <document>https://ja.wikipedia.org/wiki/認識</document>
+        <document>https://ja.wikipedia.org/wiki/知能</document>
+        <document>https://ja.wikipedia.org/wiki/記憶</document>
+        <document>https://ja.wikipedia.org/wiki/注意</document>
+        <document>https://ja.wikipedia.org/wiki/無意識</document>
+        <document>https://ja.wikipedia.org/wiki/精神障害</document>
+        <document>https://ja.wikipedia.org/wiki/精神分析学</document>
+        <document>https://ja.wikipedia.org/wiki/心的外傷後ストレス障害</document>
+        <document>https://ja.wikipedia.org/wiki/ジークムント・フロイト</document>
+    </category>
+</training-set>
