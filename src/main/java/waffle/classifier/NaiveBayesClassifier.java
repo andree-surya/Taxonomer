@@ -1,13 +1,13 @@
 package waffle.classifier;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.OutputKeys;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -15,6 +15,8 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import waffle.document.Document;
 
@@ -93,10 +95,6 @@ public class NaiveBayesClassifier extends Classifier {
             xmlDocument.appendChild(rootElement);
 
             Transformer xmlTransformer = TransformerFactory.newInstance().newTransformer();
-
-            xmlTransformer.setOutputProperty(OutputKeys.INDENT, "yes");
-            xmlTransformer.setOutputProperty("{http://xml.apache.org/xslt}indent-amount", "4");
-
             xmlTransformer.transform(new DOMSource(xmlDocument), new StreamResult(file));
 
         } catch (ParserConfigurationException exception) {
@@ -107,10 +105,61 @@ public class NaiveBayesClassifier extends Classifier {
         }
     }
 
-    public void loadModelFromFile(File file) {
+    public void loadModelFromFile(File file) throws IOException {
 
         overallTokenChances.clear();
         categoricalTokenChances.clear();
 
+        try {
+            DocumentBuilder xmlDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            org.w3c.dom.Document xmlDocument = xmlDocumentBuilder.parse(file);
+            
+            Element overallElement = (Element) xmlDocument.getElementsByTagName("overall").item(0);
+            NodeList overallTokens = overallElement.getElementsByTagName("token");
+            
+            for (int i = 0; i < overallTokens.getLength(); i++) {
+                Element tokenElement = (Element) overallTokens.item(i);
+                
+                String tokenName = tokenElement.getAttribute("name");
+                Float tokenChance = Float.valueOf(tokenElement.getTextContent());
+                
+                overallTokenChances.put(tokenName, tokenChance);
+            }
+            
+            NodeList categoryElements = xmlDocument.getElementsByTagName("category");
+            
+            for (int i = 0; i < categoryElements.getLength(); i++) {
+                
+                Element categoryElement = (Element) categoryElements.item(i);
+                String categoryName = categoryElement.getAttribute("name");
+                
+                Map<String, Float> tokenChances = categoricalTokenChances.get(categoryName);
+                
+                if (tokenChances == null) {
+                    tokenChances = new HashMap<String, Float>();
+                    
+                    categoricalTokenChances.put(categoryName, tokenChances);
+                }
+                
+                NodeList categoryTokens = categoryElement.getElementsByTagName("token");
+                
+                for (int j = 0; j < categoryTokens.getLength(); j++) {
+                    Element tokenElement = (Element) categoryTokens.item(j);
+                    
+                    String tokenName = tokenElement.getAttribute("name");
+                    Float tokenChance = Float.valueOf(tokenElement.getTextContent());
+                    
+                    tokenChances.put(tokenName, tokenChance);
+                }
+            }
+            
+        } catch (SAXException exception) {
+            
+           String errorMessage = "Invalid XML file: " + file;
+           throw new RuntimeException(errorMessage, exception);
+            
+        } catch (ParserConfigurationException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 }
