@@ -3,7 +3,9 @@ package waffle.nbayes;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -31,8 +33,34 @@ public class NaiveBayesClassifier extends Classifier {
     
     @Override
     public String classify(Document document) {
-        // TODO Auto-generated method stub
-        return null;
+        
+        Set<String> uniqueTokens = new HashSet<String>(document.extractTokens());
+        Map<String, Float> overallScoresByCategories = new HashMap<String, Float>();
+        
+        for (Map.Entry<String, IndexedScore> tokenScoresEntry : tokenScoresByCategories.entrySet()) {
+            
+            String category = tokenScoresEntry.getKey();
+            IndexedScore tokenScores = tokenScoresEntry.getValue();
+            
+            float overallScore = 1;
+            
+            for (String token : uniqueTokens) {
+                overallScore *= tokenScores.getScoreForKey(token);
+            }
+            
+            overallScoresByCategories.put(category, overallScore);
+        }
+        
+        Map.Entry<String, Float> bestScoreEntry = null;
+        
+        for (Map.Entry<String, Float> scoreEntry : overallScoresByCategories.entrySet()) {
+            
+            if (bestScoreEntry == null || bestScoreEntry.getValue() < scoreEntry.getValue() ) {
+                bestScoreEntry = scoreEntry;
+            }
+        }
+        
+        return (bestScoreEntry != null) ? bestScoreEntry.getKey() : null; 
     }
     
     public void setTokenScoresForCategory(String category, IndexedScore tokenScores) {

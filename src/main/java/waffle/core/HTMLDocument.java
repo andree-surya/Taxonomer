@@ -16,6 +16,10 @@ public class HTMLDocument extends Document {
     public HTMLDocument(URL url, String category) {
         super(url, category);
     }
+    
+    public HTMLDocument(URL url) {
+        super(url, null);
+    }
 
     @Override
     public List<String> extractTokens() {

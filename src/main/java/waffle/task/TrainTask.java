@@ -22,7 +22,7 @@ public class TrainTask {
         NaiveBayesClassifierBuilder classifierBuilder = new NaiveBayesClassifierBuilder();
 
         for (Document document : trainingDocuments) {
-            System.out.println("Extracting tokens from " + document.getUrl() + " ...");
+            System.out.println("Processing " + document.getUrl() + " ...");
             classifierBuilder.addTokensFromDocument(document);
         }
 
