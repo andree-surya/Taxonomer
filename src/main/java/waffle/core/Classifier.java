@@ -1,6 +1,4 @@
-package waffle.classifier;
-
-import waffle.document.Document;
+package waffle.core;
 
 public abstract class Classifier {
 

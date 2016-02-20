@@ -1,4 +1,4 @@
-package waffle.document;
+package waffle.core;
 
 import java.net.URL;
 import java.util.List;

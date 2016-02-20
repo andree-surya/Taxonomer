@@ -1,4 +1,4 @@
-package waffle.document;
+package waffle.core;
 
 import java.io.IOException;
 import java.net.URL;

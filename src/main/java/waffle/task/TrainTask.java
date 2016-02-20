@@ -6,10 +6,10 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
-import waffle.classifier.NaiveBayesClassifier;
-import waffle.classifier.NaiveBayesClassifierBuilder;
-import waffle.document.Document;
-import waffle.document.TrainingSet;
+import waffle.core.Document;
+import waffle.core.TrainingSet;
+import waffle.nbayes.NaiveBayesClassifier;
+import waffle.nbayes.NaiveBayesClassifierBuilder;
 
 public class TrainTask {
 

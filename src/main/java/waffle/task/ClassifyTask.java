@@ -3,7 +3,7 @@ package waffle.task;
 import java.io.File;
 import java.io.IOException;
 
-import waffle.classifier.NaiveBayesClassifier;
+import waffle.nbayes.NaiveBayesClassifier;
 
 public class ClassifyTask {
 
