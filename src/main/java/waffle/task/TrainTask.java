@@ -8,8 +8,8 @@ import java.util.List;
 
 import waffle.core.Document;
 import waffle.core.TrainingSet;
-import waffle.nbayes.NaiveBayesClassifier;
-import waffle.nbayes.NaiveBayesClassifierBuilder;
+import waffle.nbayes.NBayesClassifier;
+import waffle.nbayes.NBayesClassifierBuilder;
 
 public class TrainTask {
 
@@ -19,14 +19,14 @@ public class TrainTask {
         File trainingSetFile = new File(trainingSetUrl.toURI());
 
         List<Document> trainingDocuments = new TrainingSet(trainingSetFile).readDocuments();
-        NaiveBayesClassifierBuilder classifierBuilder = new NaiveBayesClassifierBuilder();
+        NBayesClassifierBuilder classifierBuilder = new NBayesClassifierBuilder();
 
         for (Document document : trainingDocuments) {
             System.out.println("Processing " + document.getUrl() + " ...");
             classifierBuilder.addTokensFromDocument(document);
         }
 
-        NaiveBayesClassifier classifier = classifierBuilder.build();
+        NBayesClassifier classifier = classifierBuilder.build();
 
         File classifierModelFile = new File("classifier-model.xml");
         classifier.saveModelToFile(classifierModelFile);

@@ -7,7 +7,7 @@ import java.util.Set;
 
 import waffle.core.Document;
 
-public class NaiveBayesClassifierBuilder {
+public class NBayesClassifierBuilder {
     
     // Smoothing parameter to prevent zero probability problem.
     private static final float PSEUDOCOUNT = 0.5f;
@@ -17,7 +17,7 @@ public class NaiveBayesClassifierBuilder {
     
     private Map<String, IndexedCounter> tokenCountersByCategories;
 
-    public NaiveBayesClassifierBuilder() {
+    public NBayesClassifierBuilder() {
         documentCounter = new IndexedCounter();
         totalTokenCounter = new IndexedCounter();
         
@@ -44,9 +44,9 @@ public class NaiveBayesClassifierBuilder {
         documentCounter.incrementCountForKey(documentCategory);
     }
 
-    public NaiveBayesClassifier build() {
+    public NBayesClassifier build() {
         
-        NaiveBayesClassifier classifier = new NaiveBayesClassifier();
+        NBayesClassifier classifier = new NBayesClassifier();
         int numberOfCategories = documentCounter.getNumberOfKeys();
         
         float totalDocumentCount = documentCounter.getTotalCount() + numberOfCategories * PSEUDOCOUNT;

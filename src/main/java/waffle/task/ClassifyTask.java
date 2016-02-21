@@ -5,7 +5,8 @@ import java.io.IOException;
 import java.net.URL;
 
 import waffle.core.HTMLDocument;
-import waffle.nbayes.NaiveBayesClassifier;
+import waffle.nbayes.NBayesClassifier;
+import waffle.nbayes.NBayesClassifierResult;
 
 public class ClassifyTask {
 
@@ -17,10 +18,14 @@ public class ClassifyTask {
         
         HTMLDocument document = new HTMLDocument(new URL(args[0])); 
         
-        NaiveBayesClassifier classifier = new NaiveBayesClassifier();
+        NBayesClassifier classifier = new NBayesClassifier();
         classifier.loadModelFromFile(new File("classifier-model.xml"));
         
-        String category = classifier.classify(document);
-        System.out.println("Document category: " + category);
+        NBayesClassifierResult result = (NBayesClassifierResult) classifier.classify(document);
+        System.out.println("Matched category: " + result.getMatchedCategory());
+        
+        for (String category : result.getCategorySet()) {
+            System.out.printf("Score for %s: %f\n", category, result.getScoreForCategory(category));
+        }
     }
 }

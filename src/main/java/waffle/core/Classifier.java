@@ -1,6 +1,6 @@
 package waffle.core;
 
-public abstract class Classifier {
+public interface Classifier {
 
-    public abstract String classify(Document document);
+    public ClassifierResult classify(Document document);
 }

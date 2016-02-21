@@ -23,16 +23,15 @@ import org.xml.sax.SAXException;
 import waffle.core.Classifier;
 import waffle.core.Document;
 
-public class NaiveBayesClassifier extends Classifier {
+public class NBayesClassifier implements Classifier {
 
     private Map<String, IndexedScore> tokenScoresByCategories;
     
-    public NaiveBayesClassifier() {
+    public NBayesClassifier() {
         tokenScoresByCategories = new HashMap<String, IndexedScore>();
     }
     
-    @Override
-    public String classify(Document document) {
+    public NBayesClassifierResult classify(Document document) {
         
         Set<String> uniqueTokens = new HashSet<String>(document.extractTokens());
         Map<String, Float> overallScoresByCategories = new HashMap<String, Float>();
@@ -51,16 +50,7 @@ public class NaiveBayesClassifier extends Classifier {
             overallScoresByCategories.put(category, overallScore);
         }
         
-        Map.Entry<String, Float> bestScoreEntry = null;
-        
-        for (Map.Entry<String, Float> scoreEntry : overallScoresByCategories.entrySet()) {
-            
-            if (bestScoreEntry == null || bestScoreEntry.getValue() < scoreEntry.getValue() ) {
-                bestScoreEntry = scoreEntry;
-            }
-        }
-        
-        return (bestScoreEntry != null) ? bestScoreEntry.getKey() : null; 
+        return new NBayesClassifierResult(overallScoresByCategories); 
     }
     
     public void setTokenScoresForCategory(String category, IndexedScore tokenScores) {
