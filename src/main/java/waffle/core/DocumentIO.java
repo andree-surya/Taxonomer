@@ -16,21 +16,15 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-public class TrainingSet {
-
-    private File file;
-
-    public TrainingSet(File file) {
-        this.file = file;
-    }
-
-    public List<Document> readDocuments() throws IOException {
-
+public class DocumentIO {
+    
+    public static List<Document> read(File inputFile) throws IOException {
+        
         try {
             List<Document> documents = new LinkedList<Document>();
 
             DocumentBuilder xmlDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
-            org.w3c.dom.Document xmlDocument = xmlDocumentBuilder.parse(file);
+            org.w3c.dom.Document xmlDocument = xmlDocumentBuilder.parse(inputFile);
 
             NodeList categoryElements = xmlDocument.getElementsByTagName("category");
 
@@ -56,11 +50,11 @@ public class TrainingSet {
 
         } catch (SAXException exception) {
 
-            String errorMessage = "Invalid XML file: " + file;
+            String errorMessage = "Invalid XML file: " + inputFile;
             throw new RuntimeException(errorMessage, exception);
 
         } catch (ParserConfigurationException exception) {
             throw new RuntimeException(exception);
-        }
+        }        
     }
 }

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<training-set>
+<document-set>
     <category name="情報技術">
         <document>https://ja.wikipedia.org/wiki/情報技術</document>
         <document>https://ja.wikipedia.org/wiki/電子媒体</document>
@@ -17,7 +17,7 @@
         <document>https://ja.wikipedia.org/wiki/政治学</document>
         <document>https://ja.wikipedia.org/wiki/選挙</document>
         <document>https://ja.wikipedia.org/wiki/民主主義</document>
-        <document>https://ja.wikipedia.org/wiki/ガバナンス</document>
+        <document>https://ja.wikipedia.org/wiki/君主制</document>
         <document>https://ja.wikipedia.org/wiki/専制政治</document>
         <document>https://ja.wikipedia.org/wiki/縁故主義</document>
         <document>https://ja.wikipedia.org/wiki/政党</document>
@@ -36,4 +36,4 @@
         <document>https://ja.wikipedia.org/wiki/心的外傷後ストレス障害</document>
         <document>https://ja.wikipedia.org/wiki/ジークムント・フロイト</document>
     </category>
-</training-set>
+</document-set>

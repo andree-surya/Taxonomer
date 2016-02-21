@@ -7,7 +7,7 @@ import java.net.URL;
 import java.util.List;
 
 import waffle.core.Document;
-import waffle.core.TrainingSet;
+import waffle.core.DocumentIO;
 import waffle.nbayes.NBayesClassifier;
 import waffle.nbayes.NBayesClassifierBuilder;
 import waffle.nbayes.NBayesClassifierIO;
@@ -19,7 +19,7 @@ public class TrainTask {
         URL trainingSetUrl = TrainTask.class.getResource("/training-set.xml");
         File trainingSetFile = new File(trainingSetUrl.toURI());
 
-        List<Document> trainingDocuments = new TrainingSet(trainingSetFile).readDocuments();
+        List<Document> trainingDocuments = DocumentIO.read(trainingSetFile);
         NBayesClassifierBuilder classifierBuilder = new NBayesClassifierBuilder();
 
         for (Document document : trainingDocuments) {
