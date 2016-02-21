@@ -6,23 +6,23 @@ import java.util.Set;
 
 public class IndexedScore {
     
-    private Map<String, Float> scoresByKeys;
-    private float defaultScore = 0;
+    private Map<String, Double> scoresByKeys;
+    private double defaultScore = 0;
     
     public IndexedScore() {
-        scoresByKeys = new HashMap<String, Float>();
+        scoresByKeys = new HashMap<String, Double>();
     }
     
-    public void setScoreForKey(String key, float score) {
+    public void setScoreForKey(String key, double score) {
         scoresByKeys.put(key, score);
     }
     
-    public void setDefaultScore(float defaultScore) {
+    public void setDefaultScore(double defaultScore) {
         this.defaultScore = defaultScore;
     }
     
-    public float getScoreForKey(String key) {
-        Float score = scoresByKeys.get(key);
+    public double getScoreForKey(String key) {
+        Double score = scoresByKeys.get(key);
         
         if (score == null) {
             return defaultScore;
@@ -31,7 +31,7 @@ public class IndexedScore {
         return score;
     }
     
-    public float getDefaultScore() {
+    public double getDefaultScore() {
         return defaultScore;
     }
     

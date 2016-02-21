@@ -10,7 +10,7 @@ import waffle.core.Document;
 public class NBayesClassifierBuilder {
     
     // Smoothing parameter to prevent zero probability problem.
-    private static final float PSEUDOCOUNT = 0.5f;
+    private static final double PSEUDOCOUNT = 0.5;
     
     private IndexedCounter documentCounter;
     private IndexedCounter totalTokenCounter;
@@ -49,7 +49,7 @@ public class NBayesClassifierBuilder {
         NBayesClassifier classifier = new NBayesClassifier();
         int numberOfCategories = documentCounter.getNumberOfKeys();
         
-        float totalDocumentCount = documentCounter.getTotalCount() + numberOfCategories * PSEUDOCOUNT;
+        double totalDocumentCount = documentCounter.getTotalCount() + numberOfCategories * PSEUDOCOUNT;
         
         for (Map.Entry<String, IndexedCounter> tokenCountersEntry : tokenCountersByCategories.entrySet()) {
             
@@ -58,16 +58,16 @@ public class NBayesClassifierBuilder {
             
             IndexedScore tokenScores = new IndexedScore();
             
-            float categoricalDocumentCount = documentCounter.getCountForKey(category) + PSEUDOCOUNT;
+            double categoricalDocumentCount = documentCounter.getCountForKey(category) + PSEUDOCOUNT;
             tokenScores.setDefaultScore(PSEUDOCOUNT / categoricalDocumentCount);
             
             for (String token : tokenCounters.getKeySet()) {
                 
-                float categoricalTokenCount = tokenCounters.getCountForKey(category) + PSEUDOCOUNT;
-                float categoricalTokenProbability = categoricalTokenCount / categoricalDocumentCount;
+                double categoricalTokenCount = tokenCounters.getCountForKey(category) + PSEUDOCOUNT;
+                double categoricalTokenProbability = categoricalTokenCount / categoricalDocumentCount;
                 
-                float totalTokenCount = totalTokenCounter.getCountForKey(token) + numberOfCategories * PSEUDOCOUNT;
-                float overallTokenProbability = totalTokenCount / totalDocumentCount;
+                double totalTokenCount = totalTokenCounter.getCountForKey(token) + numberOfCategories * PSEUDOCOUNT;
+                double overallTokenProbability = totalTokenCount / totalDocumentCount;
                 
                 tokenScores.setScoreForKey(token, categoricalTokenProbability / overallTokenProbability);
             }

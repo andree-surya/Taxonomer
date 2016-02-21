@@ -19,14 +19,14 @@ public class NBayesClassifier implements Classifier {
     public NBayesClassifierResult classify(Document document) {
         
         Set<String> uniqueTokens = new HashSet<String>(document.extractTokens());
-        Map<String, Float> overallScoresByCategories = new HashMap<String, Float>();
+        Map<String, Double> overallScoresByCategories = new HashMap<String, Double>();
         
         for (Map.Entry<String, IndexedScore> tokenScoresEntry : tokenScoresByCategories.entrySet()) {
             
             String category = tokenScoresEntry.getKey();
             IndexedScore tokenScores = tokenScoresEntry.getValue();
             
-            float overallScore = 0;
+            double overallScore = 0;
             
             for (String token : uniqueTokens) {
                 overallScore += tokenScores.getScoreForKey(token);

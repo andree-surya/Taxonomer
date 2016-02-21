@@ -78,18 +78,18 @@ public class NBayesClassifierIO {
                 Element categoryElement = xmlDocument.createElement("category");
                 
                 IndexedScore tokenScores = tokenScoresEntry.getValue();
-                float defaultScore = tokenScores.getDefaultScore();
+                double defaultScore = tokenScores.getDefaultScore();
                 
                 categoryElement.setAttribute("name", category);
-                categoryElement.setAttribute("default", Float.toString(defaultScore));
+                categoryElement.setAttribute("default", Double.toString(defaultScore));
                 
                 for (String token : tokenScores.getKeySet()) {
                     
-                    Float tokenScore = tokenScores.getScoreForKey(token);
+                    Double tokenScore = tokenScores.getScoreForKey(token);
                     Element tokenElement = xmlDocument.createElement("token");
                     
                     tokenElement.setAttribute("name", token);
-                    tokenElement.setTextContent(Float.toString(tokenScore));
+                    tokenElement.setTextContent(Double.toString(tokenScore));
                     
                     categoryElement.appendChild(tokenElement);
                 }

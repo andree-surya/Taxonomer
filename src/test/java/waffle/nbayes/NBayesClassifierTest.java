@@ -29,14 +29,14 @@ public class NBayesClassifierTest {
         NBayesClassifierBuilder classifierBuilder = new NBayesClassifierBuilder();
 
         for (Document document : trainingDocuments) {
-            System.out.printf("Processing %s ...\n", document.getUrl());
+            System.out.printf("Processing training document %s ...\n", document.getUrl());
             classifierBuilder.addTokensFromDocument(document);
         }
 
         NBayesClassifier classifier = classifierBuilder.build();
         
         for (Document document : testingDocuments) {
-            System.out.printf("Processing %s ...\n", document.getUrl());
+            System.out.printf("Processing testing document %s ...\n", document.getUrl());
             ClassifierResult result = classifier.classify(document);
             
             assertEquals(document.getCategory(), result.getMatchedCategory());
