@@ -1,7 +1,5 @@
-package waffle.task;
+package waffle.cli;
 
-import java.io.File;
-import java.io.IOException;
 import java.net.URL;
 
 import waffle.core.HTMLDocument;
@@ -9,16 +7,19 @@ import waffle.nbayes.NBayesClassifier;
 import waffle.nbayes.NBayesClassifierIO;
 import waffle.nbayes.NBayesClassifierResult;
 
-public class ClassifyTask {
+public class ClassifyTask implements Task {
+    public static final String COMMAND = "classify";
 
-    public static void main(String[] args) throws IOException {
+    private URL documentUrl;
+    
+    public ClassifyTask(URL documentUrl) {
+        this.documentUrl = documentUrl;
+    }
+    
+    public void execute() throws Exception {
         
-        if (args.length < 1) {
-            throw new IllegalArgumentException("Please provide the URL to the document to be classified.");
-        }
-        
-        HTMLDocument document = new HTMLDocument(new URL(args[0])); 
-        NBayesClassifier classifier = NBayesClassifierIO.read(new File("classifier-model.xml"));
+        NBayesClassifier classifier = NBayesClassifierIO.readFromDefaultFile();
+        HTMLDocument document = new HTMLDocument(documentUrl); 
         
         NBayesClassifierResult result = (NBayesClassifierResult) classifier.classify(document);
         System.out.println("Matched category: " + result.getMatchedCategory());

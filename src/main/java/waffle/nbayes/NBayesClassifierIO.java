@@ -18,7 +18,16 @@ import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 public class NBayesClassifierIO {
+    public static final File DEFAULT_FILE = new File("output/classifier-model.xml");
 
+    public static NBayesClassifier readFromDefaultFile() throws IOException {
+        return read(DEFAULT_FILE);
+    }
+    
+    public static void writeToDefaultFile(NBayesClassifier classifier) {
+        write(DEFAULT_FILE, classifier);
+    }
+    
     public static NBayesClassifier read(File inputFile) throws IOException {
         
         try {
@@ -66,6 +75,8 @@ public class NBayesClassifierIO {
     public static void write(File outputFile, NBayesClassifier classifier) {
 
         try {
+            outputFile.mkdirs();
+            
             DocumentBuilder xmlDocumentBuilder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
             org.w3c.dom.Document xmlDocument = xmlDocumentBuilder.newDocument();
 

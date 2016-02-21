@@ -1,9 +1,6 @@
-package waffle.task;
+package waffle.cli;
 
 import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.List;
 
 import waffle.core.Document;
@@ -12,12 +9,16 @@ import waffle.nbayes.NBayesClassifier;
 import waffle.nbayes.NBayesClassifierBuilder;
 import waffle.nbayes.NBayesClassifierIO;
 
-public class TrainTask {
-
-    public static void main(String[] args) throws IOException, URISyntaxException {
-
-        URL trainingSetUrl = TrainTask.class.getResource("/training-set.xml");
-        File trainingSetFile = new File(trainingSetUrl.toURI());
+public class TrainTask implements Task {
+    public static final String COMMAND = "train";
+    
+    private File trainingSetFile;
+    
+    public TrainTask(File trainingSetFile) {
+        this.trainingSetFile = trainingSetFile;
+    }
+    
+    public void execute() throws Exception {
 
         List<Document> trainingDocuments = DocumentIO.read(trainingSetFile);
         NBayesClassifierBuilder classifierBuilder = new NBayesClassifierBuilder();
@@ -28,10 +29,8 @@ public class TrainTask {
         }
 
         NBayesClassifier classifier = classifierBuilder.build();
+        NBayesClassifierIO.writeToDefaultFile(classifier);
 
-        File outputFile = new File("classifier-model.xml");
-        NBayesClassifierIO.write(outputFile, classifier);
-
-        System.out.println("Classifier model saved in file: " + outputFile.getAbsolutePath());
+        System.out.println("Classifier model successfully generated.");
     }
 }

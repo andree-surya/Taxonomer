@@ -8,6 +8,23 @@
     <name>Waffle</name>
     <description>Web page topic classifier</description>
 
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <mainClass>waffle.cli.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
     <repositories>
         <repository>
             <id>Atilika Open Source repository</id>
