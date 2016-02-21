@@ -42,10 +42,10 @@ public class NaiveBayesClassifier extends Classifier {
             String category = tokenScoresEntry.getKey();
             IndexedScore tokenScores = tokenScoresEntry.getValue();
             
-            float overallScore = 1;
+            float overallScore = 0;
             
             for (String token : uniqueTokens) {
-                overallScore *= tokenScores.getScoreForKey(token);
+                overallScore += tokenScores.getScoreForKey(token);
             }
             
             overallScoresByCategories.put(category, overallScore);
