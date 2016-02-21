@@ -10,6 +10,7 @@ import waffle.core.Document;
 import waffle.core.TrainingSet;
 import waffle.nbayes.NBayesClassifier;
 import waffle.nbayes.NBayesClassifierBuilder;
+import waffle.nbayes.NBayesClassifierIO;
 
 public class TrainTask {
 
@@ -28,9 +29,9 @@ public class TrainTask {
 
         NBayesClassifier classifier = classifierBuilder.build();
 
-        File classifierModelFile = new File("classifier-model.xml");
-        classifier.saveModelToFile(classifierModelFile);
+        File outputFile = new File("classifier-model.xml");
+        NBayesClassifierIO.write(outputFile, classifier);
 
-        System.out.println("Classifier model saved in file: " + classifierModelFile.getAbsolutePath());
+        System.out.println("Classifier model saved in file: " + outputFile.getAbsolutePath());
     }
 }
