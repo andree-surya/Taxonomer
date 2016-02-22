@@ -2,11 +2,11 @@
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.ang.waffle</groupId>
-    <artifactId>waffle</artifactId>
+    <groupId>com.ang.taxonomer</groupId>
+    <artifactId>taxonomer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Waffle</name>
-    <description>Web page topic classifier</description>
+    <name>Taxonomer</name>
+    <description>A supervised document classifier that kind of works.</description>
 
     <repositories>
         <repository>

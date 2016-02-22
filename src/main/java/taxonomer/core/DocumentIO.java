@@ -1,4 +1,4 @@
-package waffle.core;
+package taxonomer.core;
 
 import java.io.File;
 import java.io.IOException;

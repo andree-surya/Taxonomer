@@ -1,4 +1,4 @@
-package waffle.core;
+package taxonomer.core;
 
 public interface ClassifierResult {
     

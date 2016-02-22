@@ -1,4 +1,4 @@
-package waffle.nbayes;
+package taxonomer.nbayes;
 
 import java.io.File;
 import java.io.IOException;

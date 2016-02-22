@@ -1,4 +1,4 @@
-package waffle.core;
+package taxonomer.core;
 
 import java.net.URL;
 import java.util.List;

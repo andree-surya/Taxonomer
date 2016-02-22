@@ -1,11 +1,11 @@
-package waffle.nbayes;
+package taxonomer.nbayes;
 
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
-import waffle.core.Document;
+import taxonomer.core.Document;
 
 public class NBayesClassifierBuilder {
     

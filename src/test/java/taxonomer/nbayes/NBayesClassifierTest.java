@@ -1,4 +1,4 @@
-package waffle.nbayes;
+package taxonomer.nbayes;
 
 import java.io.File;
 import java.net.URL;
@@ -6,9 +6,11 @@ import java.util.List;
 
 import org.junit.Test;
 
-import waffle.core.ClassifierResult;
-import waffle.core.Document;
-import waffle.core.DocumentIO;
+import taxonomer.core.ClassifierResult;
+import taxonomer.core.Document;
+import taxonomer.core.DocumentIO;
+import taxonomer.nbayes.NBayesClassifier;
+import taxonomer.nbayes.NBayesClassifierBuilder;
 
 public class NBayesClassifierTest {
 

@@ -1,9 +1,9 @@
-package waffle.nbayes;
+package taxonomer.nbayes;
 
 import java.util.Map;
 import java.util.Set;
 
-import waffle.core.ClassifierResult;
+import taxonomer.core.ClassifierResult;
 
 public class NBayesClassifierResult implements ClassifierResult {
 

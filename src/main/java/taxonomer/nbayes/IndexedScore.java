@@ -1,4 +1,4 @@
-package waffle.nbayes;
+package taxonomer.nbayes;
 
 import java.util.HashMap;
 import java.util.Map;
