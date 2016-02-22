@@ -49,12 +49,10 @@ public class DocumentIO {
             return Collections.unmodifiableList(new ArrayList<Document>(documents));
 
         } catch (SAXException exception) {
-
-            String errorMessage = "Invalid XML file: " + inputFile;
-            throw new RuntimeException(errorMessage, exception);
+            throw new RuntimeException(exception);
 
         } catch (ParserConfigurationException exception) {
             throw new RuntimeException(exception);
-        }        
+        } 
     }
 }
