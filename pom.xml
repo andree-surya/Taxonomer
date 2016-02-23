@@ -6,7 +6,7 @@
     <artifactId>taxonomer</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>Taxonomer</name>
-    <description>A supervised document classifier that kind of works.</description>
+    <description>A supervised document classifier that kinda works.</description>
 
     <repositories>
         <repository>
