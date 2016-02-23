@@ -1,6 +1,8 @@
 package taxonomer.nbayes;
 
 import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.List;
 
@@ -17,32 +19,52 @@ public class NBayesClassifierTest {
     @Test
     public void smokeTest() throws Exception {
         
-        URL trainingSetUrl = getClass().getResource("/training-set.xml");
-        URL testingSetUrl = getClass().getResource("/testing-set.xml");
+        List<Document> trainingDocuments = readDocuments("/training-set.xml");
+        List<Document> testingDocuments = readDocuments("/testing-set.xml");
         
-        File trainingSetFile = new File(trainingSetUrl.toURI());
-        File testingSetFile = new File(testingSetUrl.toURI());
+        NBayesClassifier classifier = buildClassifier(trainingDocuments);
+        float accuracy = testClassifier(classifier, testingDocuments);
         
-        List<Document> trainingDocuments = DocumentIO.read(trainingSetFile);
-        List<Document> testingDocuments = DocumentIO.read(testingSetFile);
-
+        System.out.printf(
+                "Smoke test finished. Accuracy: %.2f%%\n\n", accuracy * 100);
+    }
+    
+    private List<Document> readDocuments(String resourceName) throws IOException, URISyntaxException {
+        
+        URL resourceUrl = getClass().getResource(resourceName);
+        File resourceFile = new File(resourceUrl.toURI());
+        
+        return DocumentIO.read(resourceFile);
+    }
+    
+    private NBayesClassifier buildClassifier(List<Document> trainingDocuments) {
+        
         NBayesClassifierBuilder classifierBuilder = new NBayesClassifierBuilder();
         System.out.printf("Building classifier with %d training documents ...\n", trainingDocuments.size());
         
-        for (Document document : trainingDocuments) {
-            System.out.printf("Training with <%s> %s ...\n", document.getCategory(), document.getUrl());
+        for (int i = 0; i < trainingDocuments.size(); i++) {
+            Document document = trainingDocuments.get(i);
             
-            classifierBuilder.addTokensFromDocument(document); 
+            System.out.printf(
+                    "Processing document #%02d <%s> %s ...\n", 
+                    i + 1, document.getCategory(), document.getUrl());
+            
+            classifierBuilder.addTokensFromDocument(document);
         }
 
-        NBayesClassifier classifier = classifierBuilder.build();
+        return classifierBuilder.build();
+    }
+    
+    private float testClassifier(NBayesClassifier classifier, List<Document> testingDocuments) {
         System.out.printf("Testing classifier with %d test documents ...\n", testingDocuments.size());
         
-        int truePositiveCount = 0;
+        int correctMatchCount = 0;
         
-        for (Document document : testingDocuments) {
+        for (int i = 0; i < testingDocuments.size(); i++) {
+            Document document = testingDocuments.get(i);
             
-            System.out.printf("Testing against <%s> %s ... ", document.getCategory(), document.getUrl());
+            System.out.printf("Testing document #%02d <%s> %s ... ", 
+                    i + 1, document.getCategory(), document.getUrl());
             
             ClassifierResult result = classifier.classify(document);
             String matchedCategory = result.getMatchedCategory();
@@ -50,16 +72,13 @@ public class NBayesClassifierTest {
             if (document.getCategory().equals(matchedCategory)) {
                 
                 System.out.println("OK");
-                truePositiveCount++;
+                correctMatchCount++;
                 
             } else {
                 System.out.printf("NG (%s)\n", matchedCategory);
             }
         }
         
-        System.out.printf(
-                "Smoke test finished. True positive rate: %.2f%%\n\n", 
-                truePositiveCount * 100.0f / testingDocuments.size());
+        return correctMatchCount / (float) testingDocuments.size();
     }
-
 }
